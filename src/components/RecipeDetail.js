@@ -7,9 +7,7 @@ const RecipeDetail = ({ ingredient }) => {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    const API_KEY = "23baa25f7969439db4fce7eb90ad2d4b";
-    // const baseUrl = `https://api.spoonacular.com/recipes/${id}/information`;
-
+    const API_KEY = "68f8780ce479429b9aeeeb5cc286295b";
     const fetchRecipeDetail = async () => {
       try {
         const response = await fetch(
@@ -30,8 +28,6 @@ const RecipeDetail = ({ ingredient }) => {
   }, [id]); // Effect runs when 'id' changes
 
   console.log("id", id);
-
-  // Rendering logic (as an example)
   if (error) {
     return <div>Error: {error}</div>;
   }

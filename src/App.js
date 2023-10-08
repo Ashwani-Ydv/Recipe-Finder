@@ -13,7 +13,7 @@ const App = () => {
   const [error, setError] = useState("");
 
   const handleSearch = async (ingredient) => {
-    const API_KEY = "23baa25f7969439db4fce7eb90ad2d4b";
+    const API_KEY = "68f8780ce479429b9aeeeb5cc286295b";
     const baseUrl = "https://api.spoonacular.com/recipes/findByIngredients";
 
     try {
@@ -25,7 +25,7 @@ const App = () => {
       }
       const data = await response.json();
       setRecipes(data);
-      setError(""); // Clear any previous error messages
+      setError("");
     } catch (error) {
       setError("Failed to fetch recipes. Please try again later.");
     }
@@ -35,16 +35,12 @@ const App = () => {
   return (
     <div className="flex flex-col min-h-screen bg-gray-100">
       <Navbar />
-
       <div className="flex-1">
         <h1 className="text-3xl font-bold text-center my-6">Recipe Finder</h1>
-
         <RecipeSearch onSearch={handleSearch} />
-
         {error && (
           <div className="text-center mt-2 alert alert-error">{error}</div>
         )}
-
         <Router>
           <Routes>
             <Route
