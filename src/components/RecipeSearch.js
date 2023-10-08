@@ -24,7 +24,10 @@ const RecipeSearch = ({ onSearch }) => {
           placeholder="Enter ingredient..."
           className="input input-bordered w-full"
         />
-        <button type="submit" className="btn btn-primary w-full">
+        <button
+          type="submit"
+          className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 border border-blue-700 rounded w-full transition duration-200 ease-in-out"
+        >
           Search
         </button>
       </form>
