@@ -1,17 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { useRecipes } from "../hooks/useRecipes";
+import { SearchContext } from "../context/SearchContext";
 
 const RecipeSearch = ({ onSearch }) => {
   const [ingredient, setIngredient] = useState("");
   const [error, setError] = useState("");
+  const { fetchRecipes, loading } = useRecipes();
+  const { recipes, setRecipes } = useContext(SearchContext);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!ingredient.trim()) {
       setError("Ingredient cannot be empty!");
       return;
     }
     setError("");
-    onSearch(ingredient);
+    const fetchedRecipes = await fetchRecipes(ingredient);
+    setRecipes(fetchedRecipes);
   };
 
   return (
@@ -28,7 +33,7 @@ const RecipeSearch = ({ onSearch }) => {
           type="submit"
           className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 border border-blue-700 rounded w-full transition duration-200 ease-in-out"
         >
-          Search
+          {loading ? "Loading..." : "Search"}
         </button>
       </form>
       {error && (

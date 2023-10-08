@@ -5,61 +5,25 @@ import RecipeList from "./components/RecipeList";
 import RecipeDetail from "./components/RecipeDetail";
 import Navbar from "./views/Navbar";
 import Footer from "./views/Footer";
+import { SearchProvider } from "./context/SearchContext";
 
 const App = () => {
-  const [recipes, setRecipes] = useState([]);
-  const [selectedRecipe, setSelectedRecipe] = useState(null);
-  const [ingredient] = useState("");
-  const [error, setError] = useState("");
-
-  const handleSearch = async (ingredient) => {
-    const API_KEY = "68f8780ce479429b9aeeeb5cc286295b";
-    const baseUrl = "https://api.spoonacular.com/recipes/findByIngredients";
-
-    try {
-      const response = await fetch(
-        `${baseUrl}?apiKey=${API_KEY}&ingredients=${ingredient}`
-      );
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-      const data = await response.json();
-      setRecipes(data);
-      setError("");
-    } catch (error) {
-      setError("Failed to fetch recipes. Please try again later.");
-    }
-  };
-  console.log("recipes", recipes);
-
   return (
     <div className="flex flex-col min-h-screen bg-gray-100">
       <Navbar />
       <div className="flex-1">
         <h1 className="text-3xl font-bold text-center my-6">Recipe Finder</h1>
-        <RecipeSearch onSearch={handleSearch} />
-        {error && (
-          <div className="text-center mt-2 alert alert-error">{error}</div>
-        )}
-        <Router>
-          <Routes>
-            <Route
-              path="/"
-              element={
-                <RecipeList
-                  recipes={recipes}
-                  onSelectRecipe={setSelectedRecipe}
-                />
-              }
-            />
-            <Route
-              path="/recipe/:id"
-              element={<RecipeDetail ingredient={ingredient} />}
-            />
-          </Routes>
-        </Router>
+        <SearchProvider>
+          <RecipeSearch />
+          <Router>
+            <Routes>
+              {/* <Route path="/" element={<RecipeSearch />} /> */}
+              <Route path="/" element={<RecipeList />} />
+              <Route path="/recipe/:id" element={<RecipeDetail />} />
+            </Routes>
+          </Router>
+        </SearchProvider>
       </div>
-
       <Footer />
     </div>
   );
