@@ -4,7 +4,6 @@ import { SearchContext } from "../context/SearchContext";
 
 const RecipeList = () => {
   const { recipes, setSelectedRecipe } = useContext(SearchContext);
-  console.log("recipes", recipes);
 
   if (!recipes) return <p>Loading...</p>;
   else {

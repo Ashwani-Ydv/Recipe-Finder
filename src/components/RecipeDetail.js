@@ -8,9 +8,6 @@ const RecipeDetail = () => {
   const [error, setError] = useState("");
   const { selectedRecipe } = useContext(SearchContext);
 
-  console.log("recipedetails", recipeDetail);
-  console.log("id", id);
-
   useEffect(() => {
     // const API_KEY = process.env.REACT_APP_API_KEY;
     const API_KEY = "4a427d6438354d3db01f3f63d0e6ef96";
